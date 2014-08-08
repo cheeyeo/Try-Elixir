@@ -1,0 +1,43 @@
+        var multiline_handler = function(command){
+          var BLOCK_OPENERS = ["do"];
+          var TOKENS = /\s+|\d+(?:\.\d*)?|"(?:[^"]|\\.)*"|'(?:[^']|\\.)*'|\/(?:[^\/]|\\.)*\/|[-+\/*]|[<>=]=?|:?[a-z@$][\w?!]*|[{}()\[\]]|[^\w\s]+/ig;
+          var levels = 0;
+          var last_line_changes = 0;
+          _ref = command.split('\n');
+
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            line = _ref[_i];
+            last_line_changes = 0;
+            _ref1 = line.match(TOKENS) || [];
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              token = _ref1[_j];
+
+              console.log("TOKEN : " + token);
+
+              if($.inArray(token, BLOCK_OPENERS) >= 0){
+                levels++;
+                last_line_changes++;
+              } else if (token === 'end') {
+                levels--;
+                last_line_changes--;
+              }
+
+              console.log('LEVELS: ' + levels)
+              console.log('LAST LINE CHANGES: ' + last_line_changes)
+
+              if (levels < 0) {
+                return false;
+              }
+            }
+          }
+
+          if (levels > 0) {
+            if (last_line_changes > 0) {
+              return 1;
+            } else {
+              return 0;
+            }
+          } else {
+            return false;
+          }
+        };

@@ -1,0 +1,97 @@
+/* tweaks to frotnend ui */
+.page-header{
+  text-align:center;
+  margin-top:0px;
+  border-bottom: none;
+}
+
+.purple_header{
+  color:#4E2A8E;
+}
+
+/* intro */
+
+.bs-callout {
+  background: #fff8ed;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #f6e4cc;
+  border-left-width: 5px;
+  border-radius: 3px;
+  border-left-color: #4E2A8E;
+}
+
+.bs-callout a{
+  color:#4E2A8E;
+  font-weight:bold;
+  text-decoration: underline;
+}
+
+.bs-callout-info h2{
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: #4E2A8E;
+  text-align: center;
+}
+
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+
+.intro a{
+  color: #4E2A8E;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* sample code*/
+.sample{
+  margin-top: 40px;
+}
+.sample h4{
+  font-weight:bold;
+}
+
+/* The console container element */
+#console {
+  height: 1070px;
+  background-color: #000;
+  position:relative;
+  width:100%;
+}
+#console pre{
+  background: #000;
+  color:#FFF;
+  border:none;
+  border-radius:0;
+}
+/* The inner console element. */
+.jqconsole {
+  padding: 10px;
+}
+/* The cursor. */
+.jqconsole-cursor {
+  background-color: gray;
+}
+/* The cursor color when the console looses focus. */
+.jqconsole-blurred .jqconsole-cursor {
+  background-color: #666;
+}
+/* The command history */
+.jqconsole-old-prompt {
+  color: #0b0;
+  font-weight: normal;
+}
+/* The text color when in input mode. */
+.jqconsole-input {
+  color: #dd0;
+}
+/* Previously entered input. */
+.jqconsole-old-input {
+  color: #bb0;
+  font-weight: normal;
+}
+/* The text color of the output. */
+.jqconsole-output {
+  color: white;
+}

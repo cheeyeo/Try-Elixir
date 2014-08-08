@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Try elixir using an in browser iex console">
+    <meta name="author" content="Chee Yeo">
+
+    <title>Try Elixir today in your browser</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/ansi.css">
+    <link rel="stylesheet" href="/css/console.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <a href="http://elixir-lang.org" target="_blank">
+          <img src="/images/logo.png" alt="Visit Elixir lang website"/>
+        </a>
+      </div>
+
+      <%= @inner %>
+
+      <div class="footer">
+        <p>
+          Built by <a href="http://github.com/cheeyeo">Chee Yeo</a> 2014.
+        </p>
+      </div>
+
+    </div> <!-- /container -->
+  </body>
+</html>

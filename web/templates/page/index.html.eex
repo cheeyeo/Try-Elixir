@@ -1,0 +1,89 @@
+<!-- <span id="status" class="label label-success pull-left"></span> -->
+
+  <div class="bs-callout bs-callout-info">
+    <h2>Free for 5 minutes? Try some <a href="http://elixir-lang.org" target="_blank">Elixir</a> now!</h2>
+  </div>
+
+<div class="row main">
+  <div class="col-lg-5 intro">
+    <p>
+      <a href="http://elixir-lang.org" target="_blank">Elixir</a> is a functional, meta-programming aware language built on top of the Erlang VM.
+    </p>
+    <p>
+      Furthermore, Elixir is geared towards a 1.0.0 release on 30th August
+      so there is no better time to get started!
+    </p>
+    <p>
+      Try typing some elixir code into the terminal on the right.
+    </p>
+
+    <div class="sample">
+      <h4 class="purple_header">Sample code</h4>
+      <p>The code samples below are taken from <a href="http://elixir-lang.org/getting_started" target="_blank">Elixir Lang - Getting Started</a>
+      <script src="https://gist.github.com/cheeyeo/d090a4400e00535082c5.js"></script>
+    </div>
+  </div>
+  <div class="col-lg-7">
+    <div id="console"></div>
+  </div>
+</div>
+<script src="/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/phoenix.js"></script>
+<script type="text/javascript" src="/static/js/jqconsole.js"></script>
+
+<script>
+      $(function() {
+        var console_channel;
+
+        var setup_console = function(version){
+          var header = 'Interactive Elixir (' + version + ')\n';
+          window.jqconsole = $('#console').jqconsole(header, 'iex> ');
+          // Move to line start Ctrl+A.
+          jqconsole.RegisterShortcut('A', function() {
+            jqconsole.MoveToStart();
+            handler();
+          });
+          // Move to line end Ctrl+E.
+          jqconsole.RegisterShortcut('E', function() {
+            jqconsole.MoveToEnd();
+            handler();
+          });
+          // Clear prompt
+          jqconsole.RegisterShortcut('R', function() {
+            jqconsole.AbortPrompt();
+            handler();
+          });
+        };
+
+        var handler = function(command) {
+          if(command){
+            console_channel.send("shell:stdin", {data: command});
+          }
+          jqconsole.Prompt(true, handler, function(command){
+            return false;
+          });
+        };
+
+        var socket = new Phoenix.Socket("ws://" + location.host + "/ws");
+        var $status = $('#status');
+
+        socket.join("shell", "shell", {}, function(chan){
+          chan.on("join", function(message){
+            console.log(message)
+            console_channel = chan;
+            $status.text(message.status);
+            setup_console(message.version);
+            handler();
+          });
+
+          chan.on("stdout", function(message){
+            var txt = atob(message.data);
+
+            if(txt.length > 0){
+              jqconsole.Write(txt + '\n');
+            }
+          });
+        }); // end socket block
+      });
+    </script>
+
