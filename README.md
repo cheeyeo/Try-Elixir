@@ -1,6 +1,6 @@
 # Try Elixir
 
-![Screenshot](cheeyeo.github.com/Try-Elixir/img/image.jpg)
+![Screenshot](https://raw.githubusercontent.com/cheeyeo/Try-Elixir/master/img/term.png)
 
 An in browser IEX terminal.
 
