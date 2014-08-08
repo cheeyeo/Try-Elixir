@@ -1,7 +1,14 @@
-# WebsocketsTerminal
+# Try Elixir
 
-An example of using Porcelain to send commands to IEX through a Phoenix websocket server which then sends the results back to the browser and
-rendering it through jqconsole.
+![Screenshot](cheeyeo.github.com/Try-Elixir/img/image.jpg)
+
+An in browser IEX terminal.
+
+It send commands to IEX through a Phoenix websocket server which then sends the results back to the browser and rendering it through jqconsole.
+
+The inspiration for this application came from 'tryruby.org' and also
+an earlier exercise in getting Porcelain to send commands to bash through
+an elixir app.
 
 To start you have to:
 
@@ -10,7 +17,7 @@ To start you have to:
 
 Now you can visit `localhost:4000` from your browser.
 
-Try entering some commands into the terminal on the right.
+Try entering some iex commands into the terminal on the right.
 
 ## Notes
 
@@ -33,10 +40,6 @@ iex -e "Application.put_env(:iex, :colors, [enabled: false])
 
 iex --erl "-iex colors [{enabled,false}]
 ```
-
-## Note to self:
-
-It does not work on Heroku as the commands are not being sent?
 
 ## Core Technologies used
 
