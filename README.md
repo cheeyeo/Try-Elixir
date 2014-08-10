@@ -41,6 +41,19 @@ iex -e "Application.put_env(:iex, :colors, [enabled: false])
 iex --erl "-iex colors [{enabled,false}]
 ```
 
+```
+proc = WebsocketsTerminal.Eval.start
+
+command="map=HashDict.new\n"
+send(proc, {self, {:input, command}})
+
+command="map=Dict.put(map, :hello, \"world\")\n"
+send(proc, {self, {:input, command}})
+
+command="map[:hello]\n"
+send(proc, {self, {:input, command}})
+```
+
 ## Core Technologies used
 
 * Elixir

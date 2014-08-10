@@ -1,6 +1,18 @@
         var multiline_handler = function(command){
           var BLOCK_OPENERS = ["do"];
-          var TOKENS = /\s+|\d+(?:\.\d*)?|"(?:[^"]|\\.)*"|'(?:[^']|\\.)*'|\/(?:[^\/]|\\.)*\/|[-+\/*]|[<>=]=?|:?[a-z@$][\w?!]*|[{}()\[\]]|[^\w\s]+/ig;
+          var TOKENS = ///
+            \s+
+           |\d+(?:\.\d*)?
+           |"(?:[^"]|\\.)*"
+           |'(?:[^']|\\.)*'
+           |/(?:[^/]|\\.)*/
+           |[-+/*]
+           |[<>=]=?
+           |:?[a-z@$][\w?!]*
+           |[{}()\[\]]
+           |[^\w\s]+
+          ///ig;
+
           var levels = 0;
           var last_line_changes = 0;
           _ref = command.split('\n');

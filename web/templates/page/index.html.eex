@@ -5,7 +5,7 @@
   </div>
 
 <div class="row main">
-  <div class="col-lg-5 intro">
+  <!-- <div class="col-lg-5 intro">
     <p>
       <a href="http://elixir-lang.org" target="_blank">Elixir</a> is a functional, meta-programming aware language built on top of the Erlang VM.
     </p>
@@ -20,10 +20,9 @@
     <div class="sample">
       <h4 class="purple_header">Sample code</h4>
       <p>The code samples below are taken from <a href="http://elixir-lang.org/getting_started" target="_blank">Elixir Lang - Getting Started</a>
-      <script src="https://gist.github.com/cheeyeo/d090a4400e00535082c5.js"></script>
     </div>
-  </div>
-  <div class="col-lg-7">
+  </div> -->
+  <div class="col-lg-12">
     <div id="console"></div>
   </div>
 </div>
@@ -55,13 +54,85 @@
           });
         };
 
+
+        var BLOCK_OPENERS, multiLineHandler,
+        __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+        BLOCK_OPENERS = ["do"];
+        var TOKENS;
+
+        TOKENS = /\s+|\d+(?:\.\d*)?|"(?:[^"]|\\.)*"|'(?:[^']|\\.)*'|\/(?:[^\/]|\\.)*\/|[-+\/*]|[<>=]=?|:?[a-z@$][\w?!]*|[{}()\[\]]|[^\w\s]+/ig;
+
+
+        var multiLineHandler = function(command) {
+          var braces, brackets, last_line_changes, levels, line, parens, token, _i, _j, _len, _len1, _ref, _ref1;
+          levels = 0;
+          parens = 0;
+          braces = 0;
+          brackets = 0;
+          last_line_changes = 0;
+          _ref = command.split('\n');
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            line = _ref[_i];
+            last_line_changes = 0;
+            _ref1 = line.match(TOKENS) || [];
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              token = _ref1[_j];
+              if (__indexOf.call(BLOCK_OPENERS, token) >= 0) {
+                levels++;
+                last_line_changes++;
+              } else if (token === '(') {
+                parens++;
+                last_line_changes++;
+              } else if (token === '{') {
+                braces++;
+                last_line_changes++;
+              } else if (token === '[') {
+                brackets++;
+                last_line_changes++;
+              } else if (token === 'end') {
+                levels--;
+                last_line_changes--;
+              } else if (token === ')') {
+                parens--;
+                last_line_changes--;
+              } else if (token === ']') {
+                braces--;
+                last_line_changes--;
+              } else if (token === '}') {
+                brackets--;
+                last_line_changes--;
+              }
+              if (levels < 0 || parens < 0 || braces < 0 || brackets < 0) {
+                return false;
+              }
+            }
+          }
+          if (levels > 0 || parens > 0 || braces > 0 || brackets > 0) {
+            if (last_line_changes > 0) {
+              return 1;
+            } else if (last_line_changes < 0) {
+              return -1;
+            } else {
+              return 0;
+            }
+          } else {
+            return false;
+          }
+        };
+
+
+
+
         var handler = function(command) {
           if(command){
             console_channel.send("shell:stdin", {data: command});
           }
-          jqconsole.Prompt(true, handler, function(command){
-            return false;
-          });
+          // jqconsole.Prompt(true, handler, function(command){
+          //   return false;
+          // });
+
+          return jqconsole.Prompt(true, handler, multiLineHandler);
         };
 
         var socket = new Phoenix.Socket("ws://" + location.host + "/ws");
@@ -77,10 +148,13 @@
           });
 
           chan.on("stdout", function(message){
-            var txt = atob(message.data);
+            var txt = JSON.parse(message);
 
-            if(txt.length > 0){
-              jqconsole.Write(txt + '\n');
+            if(txt){
+              // jqconsole.ClearPromptText(true);
+              // jqconsole.SetPromptLabel(txt.prompt);
+              jqconsole.Write(txt.result + '\n');
+              jqconsole.Write(':' + txt.type + '\n');
             }
           });
         }); // end socket block
