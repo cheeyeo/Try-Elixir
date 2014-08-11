@@ -1,5 +1,9 @@
 Changelog
 
 10th August
-
+* Updated eval.ex code to be more inline with latest version of IEX.Server
+* Fixed bugs for old record format in IEX.Server
 * Use poolboy to manage eval server
+
+11th August
+* Change jqconsole.js to  jquery-console instead

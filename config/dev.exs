@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :logger, compile_time_purge_level: :info
+
+
 config :phoenix, WebsocketsTerminal.Router,
   port: System.get_env("PORT") || 4000,
   ssl: false,

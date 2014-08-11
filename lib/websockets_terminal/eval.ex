@@ -5,11 +5,6 @@ defmodule WebsocketsTerminal.Config do
 end
 
 defmodule WebsocketsTerminal.Eval do
-  @moduledoc """
-  Eval module based on IEx.Server
-  """
-
-
   @init_allowed_non_local [
     {Access,       :all},
     {Bitwise,      :all},
@@ -30,7 +25,9 @@ defmodule WebsocketsTerminal.Eval do
     {System,       [:version]},
     {:calendar,    :all},
     {:math,        :all},
-    {:os,          [:type, :version]}
+    {:os,          [:type, :version]},
+    {MyModule,     :all}, # test module used in lessons!!
+    {PrivateModule,     :all}
   ]
 
   @allowed_non_local Enum.into @init_allowed_non_local, HashDict.new
@@ -54,19 +51,13 @@ defmodule WebsocketsTerminal.Eval do
     :__block__, :"{}", :"<<>>", :::, :lc, :inlist, :bc, :inbits, :^, :when, :|,
     :defmodule, :def, :defp, :__aliases__]
 
-
-  @doc """
-  Starts a new process of eval_loop. It does the following:
-
-    * read input
-    * check if the code being evaluated is allowed
-    * trap exceptions in the code being evaluated
-  """
   def start do
     env    = :elixir.env_for_eval(file: "iex", delegate_locals_to: nil)
     scope  = :elixir_env.env_to_scope(env)
     config = %WebsocketsTerminal.Config{scope: scope, env: env}
-    spawn(fn -> eval_loop(config) end)
+
+    evaluator = spawn(fn -> eval_loop(config) end)
+    Process.put(:evaluator, evaluator)
   end
 
   defp eval_loop(config) do
@@ -81,6 +72,9 @@ defmodule WebsocketsTerminal.Eval do
           eval(code, :unicode.characters_to_list(line), counter, config)
         catch
           kind, error ->
+            # IO.puts "eval_loop CATCH IN RECEIVE BLOCK!"
+            # IO.inspect System.stacktrace
+
             %{config | cache: '',
                 result: {"error", format_error(kind, error, System.stacktrace)}}
         end
@@ -103,9 +97,7 @@ defmodule WebsocketsTerminal.Eval do
 
   defp format_error(kind, reason, stacktrace) do
     {reason, stacktrace} = normalize_exception(kind, reason, stacktrace)
-
-    message = Exception.format_banner(kind, reason, stacktrace)
-    message
+    Exception.format_banner(kind, reason, stacktrace)
   end
 
   defp normalize_exception(:error, :undef, [{IEx.Helpers, fun, arity, _}|t]) do
@@ -173,19 +165,17 @@ defmodule WebsocketsTerminal.Eval do
   # true otherwise.
   #
   # check modules
+
   defp is_safe?({{:., _, [module, fun]}, _, args}, funl, config) do
     module = Macro.expand(module, __ENV__)
+
     case HashDict.get(@allowed_non_local, module) do
       :all ->
         is_safe?(args, funl, config)
       lst when is_list(lst) ->
         (fun in lst) and is_safe?(args, funl, config)
       _ ->
-        if module in elem(config.env, 11) do
-          is_safe?(args, funl, config)
-        else
-          false
-        end
+        false
     end
   end
 
