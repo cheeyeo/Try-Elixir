@@ -13,7 +13,7 @@ defmodule WebsocketsTerminal.Mixfile do
   def application do
     [
       mod: { WebsocketsTerminal, [] },
-      applications: [:phoenix, :porcelain]
+      applications: [:phoenix]
     ]
   end
 
@@ -25,8 +25,8 @@ defmodule WebsocketsTerminal.Mixfile do
   defp deps do
     [
       {:phoenix, github: "phoenixframework/phoenix"},
-      {:cowboy, "~> 1.0.0", github: "extend/cowboy", override: true},
-      {:porcelain, "~> 1.1.2"}
+      {:cowboy, "~> 1.0.0", github: "extend/cowboy", override: true}
+      # {:porcelain, "~> 1.1.2"}
     ]
   end
 end

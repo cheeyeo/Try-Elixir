@@ -11,5 +11,5 @@ config :phoenix, WebsocketsTerminal.Router,
 config :phoenix, :logger,
   level: :error
 
-config :porcelain, :driver, Porcelain.Driver.Basic
+# config :porcelain, :driver, Porcelain.Driver.Basic
 
