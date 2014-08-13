@@ -15,7 +15,4 @@ config :phoenix, WebsocketsTerminal.Router,
 config :phoenix, :logger,
   level: :debug
 
-# config :porcelain, :goon_driver_path, './goon'
-# config :porcelain, :driver, Porcelain.Driver.Goon
-
 

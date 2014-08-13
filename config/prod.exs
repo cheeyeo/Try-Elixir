@@ -10,6 +10,3 @@ config :phoenix, WebsocketsTerminal.Router,
 
 config :phoenix, :logger,
   level: :error
-
-# config :porcelain, :driver, Porcelain.Driver.Basic
-
