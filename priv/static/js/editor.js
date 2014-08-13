@@ -6,7 +6,7 @@ $(function() {
     window.jqconsole = $('#console').jqconsole(header, 'iex(1)> ', '...(1)>');
 
     // register error styles?
-    jqconsole.RegisterMatching('** (', ')','error');
+    jqconsole.RegisterMatching('**','/0','error');
 
     // Move to line start Ctrl+A.
     jqconsole.RegisterShortcut('A', function() {

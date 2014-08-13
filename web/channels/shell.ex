@@ -3,7 +3,7 @@ defmodule WebsocketsTerminal.Channels.Shell do
 
   def join(socket, "shell", _message) do
     IO.puts "JOIN #{socket.channel}.#{socket.topic}"
-    reply socket, "join", %{status: "Connected to remote server", version: System.version()}
+    reply socket, "join", %{status: "REMOTE IEX TERMINAL READY", version: System.version()}
     {:ok, socket}
   end
 

@@ -9,7 +9,6 @@
 
     <title>Try Elixir today in your browser</title>
     <link rel="stylesheet" href="/css/app.css">
-    <link rel="stylesheet" href="/css/ansi.css">
     <link rel="stylesheet" href="/css/console.css">
   </head>
 

@@ -53,8 +53,13 @@
 }
 
 /* The console container element */
+.console-container{
+  background-color:#6f5499;
+  padding-top:15px;
+  padding-bottom:15px;
+}
 #console {
-  height: 1070px;
+  height: 570px;
   background-color: #000;
   position:relative;
   width:100%;
@@ -94,4 +99,7 @@
 /* The text color of the output. */
 .jqconsole-output {
   color: white;
+}
+.error{
+  color: red;
 }
