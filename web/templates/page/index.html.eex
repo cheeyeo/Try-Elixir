@@ -1,8 +1,7 @@
-<div class="row main">
-  <div class="bs-callout bs-callout-info">
-  <h3><a href="http://elixir-lang.org" target="_blank">Elixir</a> is a functional, meta-programming aware language built on top of the Erlang VM.</h3>
-  <p>
-    It is a dynamic language that focuses on tooling to leverage Erlang's abilities to build concurrent, distributed and fault-tolerant applications with hot code upgrades.
+<div class="row marketing">
+  <div class="jumbotron bs-callout">
+  <p class="lead">
+     Elixir is a dynamic language that focuses on tooling to leverage Erlang's abilities to build concurrent, distributed and fault-tolerant applications with hot code upgrades.
   </p>
   <p>
     The console below emulates the iex terminal in Elixir. You can enter

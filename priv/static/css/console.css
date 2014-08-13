@@ -1,43 +1,106 @@
-/* tweaks to frotnend ui */
-.page-header{
-  text-align:center;
-  margin-top:0px;
-  border-bottom: none;
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.purple_header{
-  color:#4E2A8E;
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
-/* intro */
-
-.bs-callout {
-  background: #fff8ed;
-  padding: 20px;
-  margin: 20px 0;
-  border: 1px solid #f6e4cc;
-  border-left-width: 5px;
-  border-radius: 3px;
-  border-left-color: #4E2A8E;
+/* Custom page header */
+.header {
+  position:relative;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  padding-bottom: 19px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
 }
 
-.bs-callout a{
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  padding-top:30px;
+  padding-bottom:30px;
+  background:#fff8ed;
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron a{
   color:#4E2A8E;
   font-weight:bold;
   text-decoration: underline;
 }
-
-.bs-callout-info h2{
-  margin-top: 0;
-  margin-bottom: 5px;
-  color: #4E2A8E;
-  text-align: center;
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
 }
 
-.bs-callout p:last-child {
-  margin-bottom: 0;
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
 }
 
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+
+/* tweaks to frotnend ui */
+/* Customize container */
+.purple_header{
+  color:#4E2A8E;
+}
+
+.header #status{
+  position: absolute;
+  bottom: 19px;
+  right: 0;
+}
+
+/* intro */
 .intro a{
   color: #4E2A8E;
   font-weight: bold;
@@ -59,7 +122,7 @@
   padding-bottom:15px;
 }
 #console {
-  height: 570px;
+  height: 520px;
   background-color: #000;
   position:relative;
   width:100%;
